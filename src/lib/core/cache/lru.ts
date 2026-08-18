@@ -1,3 +1,5 @@
+import { ModernizationScoreResult } from '../scoring/types';
+
 interface CacheEntry<T> {
   value: T;
   expiresAt: number;
@@ -66,4 +68,4 @@ export class LRUCache<T> {
 }
 
 // Global Singleton instance for calculated airport metrics
-export const airportMetricsCache = new LRUCache<any>(200, 3_600_000);
+export const airportMetricsCache = new LRUCache<ModernizationScoreResult>(200, 3_600_000);

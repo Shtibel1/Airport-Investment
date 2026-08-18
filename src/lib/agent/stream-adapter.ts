@@ -47,11 +47,11 @@ export function createAgentReadableStream(
             controller.enqueue(encoder.encode(formatted));
           }
         }
-      } catch (err: any) {
+      } catch (err: unknown) {
         console.error('[StreamAdapter] Stream pipeline error:', err);
         const errorPart = formatDataStreamPart({
           type: 'error',
-          error: err?.message || 'Streaming failure occurred',
+          error: err instanceof Error ? err.message : 'Streaming failure occurred',
         });
         controller.enqueue(encoder.encode(errorPart));
       } finally {

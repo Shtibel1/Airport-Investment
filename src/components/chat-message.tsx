@@ -163,18 +163,32 @@ export function ChatMessageItem({
                     {...props}
                   />
                 ),
-                code: ({ node, inline, ...props }: any) =>
-                  inline ? (
+                code: ({
+                  node,
+                  className,
+                  children,
+                  ...props
+                }: React.ComponentPropsWithoutRef<'code'> & {
+                  node?: unknown;
+                  inline?: boolean;
+                }) => {
+                  const isInline = !className?.includes('language-') && !String(children).includes('\n');
+                  return isInline ? (
                     <code
                       className="px-1.5 py-0.5 rounded bg-slate-800 font-mono text-blue-300 text-xs border border-slate-700/50"
                       {...props}
-                    />
+                    >
+                      {children}
+                    </code>
                   ) : (
                     <code
                       className="block p-3 rounded-lg bg-slate-950 font-mono text-xs text-slate-200 overflow-x-auto my-2 border border-slate-800"
                       {...props}
-                    />
-                  ),
+                    >
+                      {children}
+                    </code>
+                  );
+                },
                 blockquote: ({ node, ...props }) => (
                   <blockquote
                     className="border-l-2 border-blue-500 pl-3 italic my-2 text-slate-400"

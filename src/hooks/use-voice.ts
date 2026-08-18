@@ -7,11 +7,45 @@ interface UseVoiceOptions {
   onTranscript?: (transcript: string) => void;
 }
 
+interface ISpeechRecognitionEvent {
+  results: {
+    [index: number]: {
+      [index: number]: {
+        transcript: string;
+      };
+    };
+  };
+}
+
+interface ISpeechRecognitionErrorEvent {
+  error: string;
+}
+
+interface ISpeechRecognitionInstance {
+  lang: string;
+  interimResults: boolean;
+  maxAlternatives: number;
+  onstart: (() => void) | null;
+  onresult: ((event: ISpeechRecognitionEvent) => void) | null;
+  onerror: ((event: ISpeechRecognitionErrorEvent) => void) | null;
+  onend: (() => void) | null;
+  start: () => void;
+  stop: () => void;
+  abort: () => void;
+}
+
+type SpeechRecognitionConstructor = new () => ISpeechRecognitionInstance;
+
+interface WindowWithSpeech extends Window {
+  SpeechRecognition?: SpeechRecognitionConstructor;
+  webkitSpeechRecognition?: SpeechRecognitionConstructor;
+}
+
 export function useVoice(options: UseVoiceOptions = {}) {
   const { lang = 'en-US', onTranscript } = options;
   const [isListening, setIsListening] = useState(false);
   const [speakingMessageId, setSpeakingMessageId] = useState<string | null>(null);
-  const recognitionRef = useRef<any>(null);
+  const recognitionRef = useRef<ISpeechRecognitionInstance | null>(null);
 
   // Clean up speech synthesis when component unmounts
   useEffect(() => {
@@ -32,8 +66,8 @@ export function useVoice(options: UseVoiceOptions = {}) {
     (onResultCallback?: (text: string) => void) => {
       if (typeof window === 'undefined') return;
 
-      const SpeechRecognition =
-        (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+      const win = window as unknown as WindowWithSpeech;
+      const SpeechRecognition = win.SpeechRecognition || win.webkitSpeechRecognition;
 
       if (!SpeechRecognition) {
         alert(
@@ -57,7 +91,7 @@ export function useVoice(options: UseVoiceOptions = {}) {
 
         recognition.onstart = () => setIsListening(true);
 
-        recognition.onresult = (event: any) => {
+        recognition.onresult = (event: ISpeechRecognitionEvent) => {
           const transcript = event.results[0]?.[0]?.transcript || '';
           if (transcript) {
             if (onResultCallback) {
@@ -69,7 +103,7 @@ export function useVoice(options: UseVoiceOptions = {}) {
           }
         };
 
-        recognition.onerror = (event: any) => {
+        recognition.onerror = (event: ISpeechRecognitionErrorEvent) => {
           console.warn('[useVoice] Speech Recognition Error:', event.error);
           setIsListening(false);
         };

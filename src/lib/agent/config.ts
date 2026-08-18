@@ -37,6 +37,13 @@ export const agentConfig = {
     return process.env.GEMINI_MODEL?.trim() || 'gemini-3.6-flash';
   },
 
+  get openSkyApiUrl(): string {
+    return (
+      process.env.OPENSKY_DEPARTURES_API_URL?.trim() ||
+      'https://opensky-network.org/api/flights/departure'
+    );
+  },
+
   get systemPrompt(): string {
     if (!cachedSystemPrompt) {
       cachedSystemPrompt = resolveSystemPrompt();
@@ -52,4 +59,5 @@ export const AgentConfigService = {
   getApiKey: () => agentConfig.apiKey,
   getSystemPrompt: () => agentConfig.systemPrompt,
   getModelName: () => agentConfig.model,
+  getOpenSkyApiUrl: () => agentConfig.openSkyApiUrl,
 };

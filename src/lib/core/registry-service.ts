@@ -12,36 +12,38 @@ export const DAILY_SYNC_INTERVAL_MS = 24 * 60 * 60 * 1000;
 let lastSyncTimestamp = 0;
 let isInitialized = false;
 
-export function isValidAirportMetadata(item: any): item is AirportMetadata {
+export function isValidAirportMetadata(item: unknown): item is AirportMetadata {
+  if (typeof item !== 'object' || item === null) {
+    return false;
+  }
+  const record = item as Record<string, unknown>;
   return (
-    typeof item === 'object' &&
-    item !== null &&
-    typeof item.iata === 'string' &&
-    item.iata.trim().length === 3 &&
-    typeof item.icao === 'string' &&
-    typeof item.name === 'string' &&
-    typeof item.city === 'string' &&
-    typeof item.latitude === 'number' &&
-    !isNaN(item.latitude) &&
-    typeof item.longitude === 'number' &&
-    !isNaN(item.longitude) &&
-    typeof item.gates === 'number' &&
-    typeof item.annualPassengers === 'number' &&
-    typeof item.designTerminalCapacity === 'number' &&
-    typeof item.flightDelayRatePct === 'number' &&
-    typeof item.yoyPassengerGrowthPct === 'number' &&
-    typeof item.loadFactorPct === 'number' &&
-    typeof item.regionalPopulationGrowthRatio === 'number' &&
-    typeof item.gateGrowthRatio === 'number' &&
-    typeof item.peakSlotUtilizationPct === 'number' &&
-    typeof item.baselineOutboundCount === 'number' &&
-    typeof item.baselineLongHaulSharePct === 'number' &&
-    Array.isArray(item.authenticDestinations) &&
-    Array.isArray(item.aliases)
+    typeof record.iata === 'string' &&
+    record.iata.trim().length === 3 &&
+    typeof record.icao === 'string' &&
+    typeof record.name === 'string' &&
+    typeof record.city === 'string' &&
+    typeof record.latitude === 'number' &&
+    !isNaN(record.latitude) &&
+    typeof record.longitude === 'number' &&
+    !isNaN(record.longitude) &&
+    typeof record.gates === 'number' &&
+    typeof record.annualPassengers === 'number' &&
+    typeof record.designTerminalCapacity === 'number' &&
+    typeof record.flightDelayRatePct === 'number' &&
+    typeof record.yoyPassengerGrowthPct === 'number' &&
+    typeof record.loadFactorPct === 'number' &&
+    typeof record.regionalPopulationGrowthRatio === 'number' &&
+    typeof record.gateGrowthRatio === 'number' &&
+    typeof record.peakSlotUtilizationPct === 'number' &&
+    typeof record.baselineOutboundCount === 'number' &&
+    typeof record.baselineLongHaulSharePct === 'number' &&
+    Array.isArray(record.authenticDestinations) &&
+    Array.isArray(record.aliases)
   );
 }
 
-export function validateAirportRegistry(data: any): AirportMetadata[] | null {
+export function validateAirportRegistry(data: unknown): AirportMetadata[] | null {
   if (!Array.isArray(data) || data.length === 0) {
     return null;
   }
@@ -58,16 +60,20 @@ export async function loadSnapshotFromDisk(): Promise<AirportMetadata[] | null> 
     if (!raw || raw.trim().length === 0) {
       return null;
     }
-    const data = JSON.parse(raw);
+    const data: unknown = JSON.parse(raw);
     const validRecords = validateAirportRegistry(data);
     if (!validRecords) {
       console.warn('[RegistryService] Snapshot failed runtime validation, retaining active memory baseline.');
       return null;
     }
     return validRecords;
-  } catch (error: any) {
-    if (error?.code !== 'ENOENT') {
-      console.warn('[RegistryService] Snapshot read/parse error, retaining active memory baseline:', error?.message || error);
+  } catch (error: unknown) {
+    const nodeErr = error as NodeJS.ErrnoException;
+    if (nodeErr?.code !== 'ENOENT') {
+      console.warn(
+        '[RegistryService] Snapshot read/parse error, retaining active memory baseline:',
+        nodeErr?.message || String(error)
+      );
     }
   }
   return null;

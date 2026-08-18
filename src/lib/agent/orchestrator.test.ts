@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { agentConfig } from './config';
 import { formatDataStreamPart, createAgentReadableStream } from './stream-adapter';
 import { AgentOrchestrator } from './orchestrator';
-import { AgentStreamEvent } from './types';
+import { AgentChatMessage, AgentStreamEvent } from './types';
 
 describe('Agent Orchestration Architecture & Services', () => {
   it('loads valid system prompt with domain rules', () => {
@@ -105,14 +105,14 @@ describe('Agent Orchestration Architecture & Services', () => {
 
   it('accepts multi-turn conversational message arrays', async () => {
     const orchestrator = new AgentOrchestrator();
-    const conversationHistory: { role: 'user' | 'assistant'; content: string }[] = [
+    const conversationHistory: AgentChatMessage[] = [
       { role: 'user', content: 'Compare LAX and SNA' },
       { role: 'assistant', content: 'LAX has an MPS of 70.2 while SNA is 45.0.' },
       { role: 'user', content: 'Which one has higher runway delay rates?' },
     ];
 
     // Verify it doesn't crash during initialization and parameter parsing
-    const generator = orchestrator.execute(conversationHistory as any);
+    const generator = orchestrator.execute(conversationHistory);
     expect(generator).toBeDefined();
   });
 });

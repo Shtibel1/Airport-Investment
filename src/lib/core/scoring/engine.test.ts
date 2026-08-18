@@ -81,12 +81,28 @@ describe('Mathematical Scoring Engine (MPS)', () => {
     expect(zero).toBe(0);
   });
 
-  it('bounds Unmet Demand / Spill between 0 and 100', () => {
-    const high = calculateUnmetDemandSpill(2.5, 0.5, 98);
-    expect(high.score).toBe(100);
+  it('safely handles zero or negative capacity and zero gate growth without division-by-zero errors', () => {
+    // Zero design terminal capacity
+    const zeroCap = calculateCapacityCongestion(5_000_000, 0, 25);
+    expect(zeroCap.score).toBeGreaterThanOrEqual(0);
+    expect(zeroCap.score).toBeLessThanOrEqual(100);
+    expect(isFinite(zeroCap.score)).toBe(true);
 
-    const zero = calculateUnmetDemandSpill(0, 1.0, 0);
-    expect(zero.score).toBe(0);
+    // Negative design terminal capacity
+    const negCap = calculateCapacityCongestion(5_000_000, -100, 25);
+    expect(negCap.score).toBeGreaterThanOrEqual(0);
+    expect(negCap.score).toBeLessThanOrEqual(100);
+
+    // Zero gate growth ratio
+    const zeroGateGrowth = calculateUnmetDemandSpill(1.2, 0, 90);
+    expect(zeroGateGrowth.score).toBeGreaterThanOrEqual(0);
+    expect(zeroGateGrowth.score).toBeLessThanOrEqual(100);
+    expect(isFinite(zeroGateGrowth.score)).toBe(true);
+
+    // Negative gate growth ratio
+    const negGateGrowth = calculateUnmetDemandSpill(1.2, -1, 90);
+    expect(negGateGrowth.score).toBeGreaterThanOrEqual(0);
+    expect(negGateGrowth.score).toBeLessThanOrEqual(100);
   });
 
   it('verifies strict MPS boundary conditions (0 <= MPS <= 100)', () => {

@@ -14,14 +14,14 @@ export interface ToolCallEvent {
   type: 'tool-call';
   toolCallId: string;
   toolName: string;
-  args: Record<string, any>;
+  args: Record<string, unknown>;
 }
 
 export interface ToolResultEvent {
   type: 'tool-result';
   toolCallId: string;
   toolName: string;
-  result: any;
+  result: unknown;
 }
 
 export interface FinishEvent {

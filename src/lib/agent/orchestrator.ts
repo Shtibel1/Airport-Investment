@@ -72,7 +72,7 @@ export class AgentOrchestrator {
         for (const call of functionCalls) {
           const toolName = call.name || 'unknownTool';
           const toolCallId = `call_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
-          const args = (call.args as Record<string, any>) || {};
+          const args = (call.args as Record<string, unknown>) || {};
 
           console.log(`[AgentOrchestrator] Executing tool ${toolName} with args:`, args);
 
@@ -106,9 +106,10 @@ export class AgentOrchestrator {
                 },
               ],
             });
-          } catch (toolError: any) {
+          } catch (toolError: unknown) {
             console.error(`[AgentOrchestrator] Tool ${toolName} error:`, toolError);
-            const errorMessage = toolError?.message || 'Tool execution failed';
+            const errorMessage =
+              toolError instanceof Error ? toolError.message : 'Tool execution failed';
 
             yield {
               type: 'tool-result',
@@ -148,13 +149,14 @@ export class AgentOrchestrator {
         finishReason: 'stop',
         usage: { promptTokens: 0, completionTokens: 0 },
       };
-
-      console.log(`[AgentOrchestrator] Execution finished successfully in ${Date.now() - startTime}ms`);
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('[AgentOrchestrator] Fatal execution error:', error);
       yield {
         type: 'error',
-        error: error?.message || 'An unexpected error occurred during agent execution.',
+        error:
+          error instanceof Error
+            ? error.message
+            : 'An unexpected error occurred during agent execution.',
       };
     }
   }

@@ -50,7 +50,7 @@
       "massachusetts",
       "bos"
     ],
-    "lastUpdated": "2026-08-18T10:44:44.909Z"
+    "lastUpdated": "2026-08-18T11:06:32.628Z"
   },
   {
     "iata": "BDL",
@@ -93,7 +93,7 @@
       "connecticut",
       "bdl"
     ],
-    "lastUpdated": "2026-08-18T10:44:44.909Z"
+    "lastUpdated": "2026-08-18T11:06:32.628Z"
   },
   {
     "iata": "PVD",
@@ -134,7 +134,7 @@
       "rhode island",
       "pvd"
     ],
-    "lastUpdated": "2026-08-18T10:44:44.909Z"
+    "lastUpdated": "2026-08-18T11:06:32.628Z"
   },
   {
     "iata": "MHT",
@@ -171,7 +171,7 @@
       "new hampshire",
       "mht"
     ],
-    "lastUpdated": "2026-08-18T10:44:44.909Z"
+    "lastUpdated": "2026-08-18T11:06:32.628Z"
   },
   {
     "iata": "PWM",
@@ -211,7 +211,7 @@
       "maine",
       "pwm"
     ],
-    "lastUpdated": "2026-08-18T10:44:44.909Z"
+    "lastUpdated": "2026-08-18T11:06:32.628Z"
   },
   {
     "iata": "BTV",
@@ -249,7 +249,7 @@
       "vermont",
       "btv"
     ],
-    "lastUpdated": "2026-08-18T10:44:44.909Z"
+    "lastUpdated": "2026-08-18T11:06:32.628Z"
   },
   {
     "iata": "LAX",
@@ -311,7 +311,7 @@
       "lax",
       "southern california"
     ],
-    "lastUpdated": "2026-08-18T10:44:44.909Z"
+    "lastUpdated": "2026-08-18T11:06:32.628Z"
   },
   {
     "iata": "SNA",
@@ -356,7 +356,7 @@
       "orange county",
       "sna"
     ],
-    "lastUpdated": "2026-08-18T10:44:44.909Z"
+    "lastUpdated": "2026-08-18T11:06:32.628Z"
   },
   {
     "iata": "BUR",
@@ -397,7 +397,7 @@
       "hollywood burbank",
       "bur"
     ],
-    "lastUpdated": "2026-08-18T10:44:44.909Z"
+    "lastUpdated": "2026-08-18T11:06:32.628Z"
   },
   {
     "iata": "ONT",
@@ -439,7 +439,7 @@
       "inland empire",
       "ont"
     ],
-    "lastUpdated": "2026-08-18T10:44:44.909Z"
+    "lastUpdated": "2026-08-18T11:06:32.628Z"
   },
   {
     "iata": "SAN",
@@ -482,7 +482,7 @@
       "lindbergh",
       "san"
     ],
-    "lastUpdated": "2026-08-18T10:44:44.909Z"
+    "lastUpdated": "2026-08-18T11:06:32.628Z"
   },
   {
     "iata": "SFO",
@@ -543,7 +543,7 @@
       "sfo",
       "bay area"
     ],
-    "lastUpdated": "2026-08-18T10:44:44.909Z"
+    "lastUpdated": "2026-08-18T11:06:32.628Z"
   },
   {
     "iata": "OAK",
@@ -585,7 +585,7 @@
       "oakland",
       "oak"
     ],
-    "lastUpdated": "2026-08-18T10:44:44.909Z"
+    "lastUpdated": "2026-08-18T11:06:32.628Z"
   },
   {
     "iata": "SJC",
@@ -629,7 +629,7 @@
       "mineta",
       "sjc"
     ],
-    "lastUpdated": "2026-08-18T10:44:44.909Z"
+    "lastUpdated": "2026-08-18T11:06:32.628Z"
   },
   {
     "iata": "ANC",
@@ -682,7 +682,7 @@
       "alaska",
       "anc"
     ],
-    "lastUpdated": "2026-08-18T10:44:44.909Z"
+    "lastUpdated": "2026-08-18T11:06:32.628Z"
   },
   {
     "iata": "JFK",
@@ -734,7 +734,7 @@
       "new york jfk",
       "kennedy"
     ],
-    "lastUpdated": "2026-08-18T10:44:44.909Z"
+    "lastUpdated": "2026-08-18T11:06:32.628Z"
   },
   {
     "iata": "ORD",
@@ -786,7 +786,7 @@
       "o hare",
       "ord"
     ],
-    "lastUpdated": "2026-08-18T10:44:44.909Z"
+    "lastUpdated": "2026-08-18T11:06:32.628Z"
   },
   {
     "iata": "ATL",
@@ -838,7 +838,7 @@
       "hartsfield",
       "atl"
     ],
-    "lastUpdated": "2026-08-18T10:44:44.909Z"
+    "lastUpdated": "2026-08-18T11:06:32.628Z"
   },
   {
     "iata": "SEA",
@@ -888,7 +888,7 @@
       "seatac",
       "sea"
     ],
-    "lastUpdated": "2026-08-18T10:44:44.909Z"
+    "lastUpdated": "2026-08-18T11:06:32.628Z"
   },
   {
     "iata": "DEN",
@@ -935,7 +935,7 @@
       "dia",
       "den"
     ],
-    "lastUpdated": "2026-08-18T10:44:44.909Z"
+    "lastUpdated": "2026-08-18T11:06:32.628Z"
   },
   {
     "iata": "DFW",
@@ -990,7 +990,7 @@
       "dfw",
       "fort worth"
     ],
-    "lastUpdated": "2026-08-18T10:44:44.909Z"
+    "lastUpdated": "2026-08-18T11:06:32.628Z"
   },
   {
     "iata": "MIA",
@@ -1040,6 +1040,6 @@
       "miami",
       "mia"
     ],
-    "lastUpdated": "2026-08-18T10:44:44.909Z"
+    "lastUpdated": "2026-08-18T11:06:32.628Z"
   }
 ]

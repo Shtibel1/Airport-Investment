@@ -5,9 +5,7 @@ import {
 import { AirportMetadata } from '../data/types';
 import { calculateHaversineDistance } from '../core/scoring/haversine';
 import { FlightRecord } from '../core/scoring/types';
-
-const OPENSKY_DEPARTURES_API_URL =
-  process.env.OPENSKY_DEPARTURES_API_URL || 'https://opensky-network.org/api/flights/departure';
+import { agentConfig } from '../agent/config';
 
 interface OpenSkyDeparture {
   icao24: string;
@@ -34,12 +32,12 @@ export async function fetchLiveDepartures(icaoCode: string): Promise<FlightRecor
 
   try {
     console.log(
-      `[AviationClient] [LIVE CALL] Querying OpenSky Network: ${OPENSKY_DEPARTURES_API_URL}?airport=${originAirport.icao}&begin=${fourHoursAgo}&end=${now}`
+      `[AviationClient] [LIVE CALL] Querying OpenSky Network: ${agentConfig.openSkyApiUrl}?airport=${originAirport.icao}&begin=${fourHoursAgo}&end=${now}`
     );
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 4000); // 4-second timeout
 
-    const url = `${OPENSKY_DEPARTURES_API_URL}?airport=${encodeURIComponent(
+    const url = `${agentConfig.openSkyApiUrl}?airport=${encodeURIComponent(
       originAirport.icao
     )}&begin=${fourHoursAgo}&end=${now}`;
 

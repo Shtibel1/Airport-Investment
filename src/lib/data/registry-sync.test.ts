@@ -78,4 +78,10 @@ describe('Registry Sync & Minimalist Daily Snapshot Architecture', () => {
     const reloaded = await loadSnapshotFromDisk();
     expect(reloaded).toHaveLength(22);
   });
+
+  it('performs on-demand or cron background snapshot revalidation', async () => {
+    const refreshed = await ensureRegistryFresh(true);
+    expect(refreshed).toHaveLength(22);
+    expect(refreshed[0].lastUpdated).toBeDefined();
+  });
 });

@@ -1,7 +1,7 @@
 import { FunctionDeclaration } from '@google/genai';
 import { z } from 'zod';
 
-export interface AgentTool<TArgs = any, TResult = any> {
+export interface AgentTool<TArgs = unknown, TResult = unknown> {
   name: string;
   description: string;
   schema: z.ZodType<TArgs>;

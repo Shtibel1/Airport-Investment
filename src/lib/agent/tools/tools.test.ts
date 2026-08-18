@@ -7,6 +7,11 @@ import {
   CompareAirportsArgsSchema,
   GetRegionalAirportsArgsSchema,
 } from './index';
+import {
+  ModernizationScoreResult,
+  AirportComparisonResult,
+  RegionalRankingResult,
+} from '../../core/scoring/types';
 
 describe('Modular Agent Tools Registry & Zod Schema Verification', () => {
   it('registers all required tools and declarations', () => {
@@ -38,18 +43,24 @@ describe('Modular Agent Tools Registry & Zod Schema Verification', () => {
   });
 
   it('executes getAirportMetrics tool successfully with valid arguments', async () => {
-    const result = await executeTool('getAirportMetrics', { airportCode: 'SFO' });
+    const result = await executeTool<ModernizationScoreResult>('getAirportMetrics', {
+      airportCode: 'SFO',
+    });
     expect(result.iataCode).toBe('SFO');
     expect(result.mpsScore).toBeGreaterThan(0);
   });
 
   it('executes compareAirports tool successfully', async () => {
-    const result = await executeTool('compareAirports', { airportCodes: ['LAX', 'SNA'] });
+    const result = await executeTool<AirportComparisonResult>('compareAirports', {
+      airportCodes: ['LAX', 'SNA'],
+    });
     expect(result.airports.length).toBe(2);
   });
 
   it('executes getRegionalAirports tool successfully', async () => {
-    const result = await executeTool('getRegionalAirports', { region: 'New England' });
+    const result = await executeTool<RegionalRankingResult>('getRegionalAirports', {
+      region: 'New England',
+    });
     expect(result.airports.length).toBe(6);
   });
 });

@@ -8,6 +8,7 @@ import {
 } from '../core/registry-service';
 import { findAirport, getActiveAirportRegistry } from './airports-db';
 import { getAirportMetrics, compareAirports } from '../core/airport-service';
+import { AirportMetadata } from './types';
 
 describe('Proof of System: Live Daily Rolling Snapshot & Synchronization', () => {
   const snapshotPath = path.resolve(process.cwd(), 'src/lib/data/airports-registry.json');
@@ -20,7 +21,12 @@ describe('Proof of System: Live Daily Rolling Snapshot & Synchronization', () =>
     expect(data.length).toBe(22);
 
     console.log(`\n[PROOF 1] Found ${data.length} registered airports on disk:`);
-    console.log(data.map((a: any) => ` - ${a.iata} (${a.name}) | Delay: ${a.flightDelayRatePct}% | Gates: ${a.gates}`).slice(0, 5).join('\n'));
+    console.log(
+      (data as AirportMetadata[])
+        .map((a) => ` - ${a.iata} (${a.name}) | Delay: ${a.flightDelayRatePct}% | Gates: ${a.gates}`)
+        .slice(0, 5)
+        .join('\n')
+    );
   });
 
   it('2. Demonstrates Cold-Start Loading & Active Memory Synchronization', async () => {
