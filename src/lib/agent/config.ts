@@ -30,7 +30,14 @@ function resolveSystemPrompt(): string {
  */
 export const agentConfig = {
   get apiKey(): string {
-    return process.env.GOOGLE_GENERATIVE_AI_API_KEY?.trim() || '';
+    return (
+      process.env.GOOGLE_GENERATIVE_AI_API_KEY?.trim() ||
+      process.env.GEMINI_API_KEY?.trim() ||
+      process.env.GOOGLE_API_KEY?.trim() ||
+      process.env.NEXT_PUBLIC_GOOGLE_GENERATIVE_AI_API_KEY?.trim() ||
+      process.env.NEXT_PUBLIC_GEMINI_API_KEY?.trim() ||
+      ''
+    );
   },
 
   get model(): string {

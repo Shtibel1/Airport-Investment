@@ -81,9 +81,13 @@ describe('Agent Orchestration Architecture & Services', () => {
 
   it('gracefully emits an error when API key is unavailable', async () => {
     const originalGoogleKey = process.env.GOOGLE_GENERATIVE_AI_API_KEY;
+    const originalGeminiKey = process.env.GEMINI_API_KEY;
+    const originalGoogleApiKey = process.env.GOOGLE_API_KEY;
 
     try {
       delete process.env.GOOGLE_GENERATIVE_AI_API_KEY;
+      delete process.env.GEMINI_API_KEY;
+      delete process.env.GOOGLE_API_KEY;
 
       const orchestrator = new AgentOrchestrator();
       const events: AgentStreamEvent[] = [];
@@ -100,6 +104,8 @@ describe('Agent Orchestration Architecture & Services', () => {
       }
     } finally {
       if (originalGoogleKey) process.env.GOOGLE_GENERATIVE_AI_API_KEY = originalGoogleKey;
+      if (originalGeminiKey) process.env.GEMINI_API_KEY = originalGeminiKey;
+      if (originalGoogleApiKey) process.env.GOOGLE_API_KEY = originalGoogleApiKey;
     }
   });
 
