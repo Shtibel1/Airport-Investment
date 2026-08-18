@@ -13,14 +13,14 @@ import { AirportMetadata } from './types';
 describe('Proof of System: Live Daily Rolling Snapshot & Synchronization', () => {
   const snapshotPath = path.resolve(process.cwd(), 'src/lib/data/airports-registry.json');
 
-  it('1. Verifies persistent JSON snapshot exists and is valid on disk', () => {
+  it('1. Verifies persistent JSON snapshot exists and is valid on disk', async () => {
     expect(fs.existsSync(snapshotPath)).toBe(true);
-    const raw = fs.readFileSync(snapshotPath, 'utf8');
-    const data = JSON.parse(raw);
+    const data = await loadSnapshotFromDisk();
+    expect(data).toBeDefined();
     expect(Array.isArray(data)).toBe(true);
-    expect(data.length).toBe(22);
+    expect(data!.length).toBe(22);
 
-    console.log(`\n[PROOF 1] Found ${data.length} registered airports on disk:`);
+    console.log(`\n[PROOF 1] Found ${data!.length} registered airports on disk:`);
     console.log(
       (data as AirportMetadata[])
         .map((a) => ` - ${a.iata} (${a.name}) | Delay: ${a.flightDelayRatePct}% | Gates: ${a.gates}`)
